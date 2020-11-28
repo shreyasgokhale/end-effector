@@ -14,7 +14,6 @@
 
 float calculateAngle(float x1, float y1, float x2, float y2) {
     return atan((y2 - y1) / (x2 - x1));
-
 }
 
 float calculateLength(float x1, float y1, float x2, float y2) {
@@ -64,6 +63,13 @@ Link::Link(float x, float y, float length, double thetaInDeg) : x1(x), y1(y), le
     Link::origin = std::make_pair(x, y);
 }
 
+/**
+ * Constructor
+ * Initializes Link using origin pair, length and theta in degrees
+ * @param origin
+ * @param length
+ * @param thetaInDeg
+ */
 Link::Link(std::pair<float, float> origin, float length, double thetaInDeg) : origin(std::move(origin)), length(length),
                                                                               theta(degreesToRadians(thetaInDeg)) {
     Link::setOrigin(origin.first, origin.second);

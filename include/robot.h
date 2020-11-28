@@ -10,22 +10,23 @@
 #include "vector"
 #include "link.h"
 
-class Robot{
+class Robot {
 
 public:
-    Robot(const std::string &name);
+    Robot(std::string name);
 
     bool addLink(Link l);
+
     bool addLink(float length, float theta);
+
     void printStructure();
 
 
 private:
     std::string name;
-    std::vector <Link> manipulator = {};
+    std::vector<Link> manipulator = {};
 
 };
-
 
 
 #endif //END_EFFECTOR_ASSIGNMENT_ROBOT_H

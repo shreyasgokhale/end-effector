@@ -3,21 +3,21 @@
 //
 
 #include <iostream>
+#include <utility>
 #include "../include/robot.h"
 
-Robot::Robot(const std::string &name) : name(name) {}
+Robot::Robot(std::string name) : name(std::move(name)) {}
 
 bool Robot::addLink(Link l) {
 
-//    Check if the end of the first link matches the start of the second link
-
+//  Check if the end of the first link matches the start of the second link
     if (manipulator.empty()) {
         std::pair<float, float> o = l.getOrigin();
 
 #ifdef DEBUG
         std::cout << "ORIGIN X = " << o.first << " Y = " << o.second << std::endl;
 #endif
-
+//      Check if the first link insertion has 0,0 origin
         if (!(o.first == 0.0 && o.second == 0.0)) {
             std::cerr << "Link origin does not match system origin" << std::endl;
             return false;
@@ -29,7 +29,6 @@ bool Robot::addLink(Link l) {
 #ifdef DEBUG
         std::cout << "ORIGIN X = " << o.first << " Y = " << o.second << std::endl;
         std::cout << "END X = " << e.first << " Y = " << e.second << std::endl;
-
 #endif
 
         if (e != o) {
