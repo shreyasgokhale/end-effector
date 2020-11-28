@@ -3,4 +3,4 @@ project(end_effector_assignment)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(end_effector_assignment main.cpp)
+add_executable(end_effector_assignment main.cpp src/robot.cpp include/robot.h)
