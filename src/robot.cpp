@@ -2,80 +2,76 @@
 // Created by shreyas on 28.11.20.
 //
 
+#include <iostream>
 #include "../include/robot.h"
-#include "math.h"
 
-// https://gist.github.com/dbrockman/4773781
-#define degreesToRadians(angleDegrees) ((angleDegrees) * M_PI / 180.0)
-#define radiansToDegrees(angleRadians) ((angleRadians) * 180.0 / M_PI)
+Robot::Robot(const std::string &name) : name(name) {}
 
+bool Robot::addLink(Link l) {
 
-float calculateAngle(float x1, float y1, float x2, float y2)
-{
-    return atan((y2- y1)/(x2-x1));
+//    Check if the end of the first link matches the start of the second link
 
-}
+    if (manipulator.empty()) {
+        std::pair<float, float> o = l.getOrigin();
 
-float calculateLength(float x1, float y1, float x2, float y2)
-{
-    return sqrt(pow(x2 - x1, 2) +
-                pow(y2 - y1, 2) );
-}
+#ifdef DEBUG
+        std::cout << "ORIGIN X = " << o.first << " Y = " << o.second << std::endl;
+#endif
 
-const std::pair<float, float> &Link::getOrigin() const {
-    return origin;
-}
+        if (!(o.first == 0.0 && o.second == 0.0)) {
+            std::cerr << "Link origin does not match system origin" << std::endl;
+            return false;
+        }
+    } else {
+        std::pair<float, float> e = manipulator.back().getEnd();
+        std::pair<float, float> o = l.getOrigin();
 
-void Link::setOrigin(const std::pair<float, float> &origin) {
-    Link::origin = origin;
-}
+#ifdef DEBUG
+        std::cout << "ORIGIN X = " << o.first << " Y = " << o.second << std::endl;
+        std::cout << "END X = " << e.first << " Y = " << e.second << std::endl;
 
-void Link::setOrigin(const float x, const float y) {
-    Link::x1 = x;
-    Link::y1 = y;
-    Link::origin = std::make_pair(x, y);
-}
+#endif
 
-float Link::getLength() const {
-    return length;
-}
+        if (e != o) {
+            std::cerr << "Link origin does not match end of last element" << std::endl;
+            return false;
+        }
+    }
 
-void Link::setLength(float length) {
-    Link::length = length;
-}
-
-/**
- * Constructor
- * Initializes Link using x,y, length and thetaInDeg
- * @param x, y : Origin coordinates of the Link
- * @param length : Length of the Link
- * @param thetaInDeg : Angle made by Link with respect to the x axis, in degrees
- */
-Link::Link(float x, float y, float length, double thetaInDeg) : x1(x), y1(y), length(length), theta(degreesToRadians(thetaInDeg)) {
-    Link::origin = std::make_pair(x, y);
-}
-
-
-
-
-bool Link::initLink(float x1, float y1, float x2, float y2) {
-    Link::setOrigin(x1, y1);
-    Link::length = calculateLength(x1, y1, x2, y2);
-    Link::theta = calculateAngle(x1, y1, x2, y2);
-
+    Robot::manipulator.push_back(l);
+    std::cout << "Link Added!" << std::endl;
     return true;
 }
 
-Link::Link() {
 
+bool Robot::addLink(float length, float theta) {
+    Link l;
+    if (manipulator.empty())
+        l = Link(0.0, 0.0, length, theta);
+    else {
+        l = Link(manipulator.back().getEnd(), length, theta);
+    }
+
+#ifdef DEBUG
+    std::cout << "ORIGIN X = " << l.getOrigin().first << " Y = " << l.getOrigin().second << std::endl;
+    std::cout << "END X = " << l.getEnd().first << " Y = " << l.getEnd().second << std::endl;
+#endif
+
+    Robot::manipulator.push_back(l);
+    std::cout << "Link Added!" << std::endl;
+    return true;
 }
 
-double Link::getTheta() const {
-    return theta;
+void Robot::printStructure() {
+    if (!manipulator.empty()) {
+        for (auto it:manipulator) {
+            std::pair<float, float> origin = it.getOrigin();
+            std::cout << "( " << origin.first << "," << origin.second << ") --> ";
+        }
+        std::cout << "( " << manipulator.back().getEnd().first << "," << manipulator.back().getEnd().second << ") "
+                  << std::endl;
+    } else {
+        std::cerr << "Manipulator is empty" << std::endl;
+    }
 }
-
-double Link::getThetaDeg() const {
-    return radiansToDegrees(theta);
-}
-
 
