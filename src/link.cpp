@@ -4,8 +4,6 @@
 
 #include "../include/link.h"
 
-#include <utility>
-#include "math.h"
 
 // https://gist.github.com/dbrockman/4773781
 #define degreesToRadians(angleDegrees) ((angleDegrees) * M_PI / 180.0)
@@ -13,12 +11,12 @@
 
 
 float calculateAngle(float x1, float y1, float x2, float y2) {
-    return atan((y2 - y1) / (x2 - x1));
+    return (atan((y2 - y1) / (x2 - x1)));
 }
 
 float calculateLength(float x1, float y1, float x2, float y2) {
-    return sqrt(pow(x2 - x1, 2) +
-                pow(y2 - y1, 2));
+    return float(sqrt(pow(x2 - x1, 2) +
+                pow(y2 - y1, 2)));
 }
 
 std::pair<float, float> Link::getOrigin() {
@@ -26,9 +24,9 @@ std::pair<float, float> Link::getOrigin() {
 }
 
 
-std::pair<float, float> Link::getEnd() {
-    double x2 = this->x1 + (this->length * (float) cos(this->theta));
-    double y2 = this->y1 + (this->length * (float) sin(this->theta));
+std::pair<float, float> Link::getEnd(float coordinate_theta) const {
+    double x2 = this->x1 + this->length * (float) cos(coordinate_theta);
+    double y2 = this->y1 + this->length * (float) sin(coordinate_theta);
     std::pair<float, float> end((float(x2)), float(y2));
     return end;
 }
@@ -40,7 +38,6 @@ void Link::setOrigin(const std::pair<float, float> &origin) {
 void Link::setOrigin(const float x, const float y) {
     Link::x1 = x;
     Link::y1 = y;
-    Link::origin = std::make_pair(x, y);
 }
 
 float Link::getLength() const {
@@ -101,6 +98,10 @@ double Link::getTheta() const {
 
 double Link::getThetaDeg() const {
     return radiansToDegrees(theta);
+}
+
+Link::~Link() {
+
 }
 
 

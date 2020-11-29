@@ -7,38 +7,43 @@
 
 
 #include <utility>
+#include "math.h"
 
-class Link{
+class Link {
 
 private:
 
-    float x1,y1, length = 0;
+    float x1, y1, length = 0;
     double theta = 0;
-public:
-    double getTheta() const;
-
-private:
-    std::pair<float,float> origin = {x1, y1};
+    std::pair<float, float> origin = {x1, y1};
 
 public:
-    Link(float x, float y, float length, double thetaInDeg);
-    Link(std::pair<float,float> origin ,float length, double thetaInDeg);
-
-    bool initLink(float x1, float y1, float x2, float y2);
-
-
-    std::pair<float, float> getOrigin();
-    std::pair<float, float> getEnd();
-
-
-    float getLength() const;
-    void setLength(float length);
-    void setOrigin(const std::pair<float, float> &origin);
-    void setOrigin(float x, float y);
 
     Link();
 
+    virtual ~Link();
+
+    Link(float x, float y, float length, double thetaInDeg);
+
+    Link(std::pair<float, float> origin, float length, double thetaInDeg);
+
+    bool initLink(float x1, float y1, float x2, float y2);
+
+    std::pair<float, float> getOrigin();
+
+    std::pair<float, float> getEnd(float coordinate_theta) const;
+
+    float getLength() const;
+
+    void setLength(float length);
+
+    void setOrigin(const std::pair<float, float> &origin);
+
+    void setOrigin(float x, float y);
+
     double getThetaDeg() const;
+
+    double getTheta() const;
 };
 
 
