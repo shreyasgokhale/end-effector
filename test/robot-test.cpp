@@ -9,6 +9,24 @@
 #include "math.h"
 
 
+TEST(Intersection, TestIfIntersect) {
+    Robot r1 = Robot("Manipulator 1");
+    ASSERT_TRUE(r1.addLink(2, 45));
+    ASSERT_TRUE(r1.addLink(1, 45));
+    ASSERT_TRUE(r1.isInTheCircle(2,3,2));
+    ASSERT_FALSE(r1.isInTheCircle(-1,1,2));
+    r1.printStructure();
+}
+
+TEST(Intersection, TestIfDontIntersect) {
+    Robot r1 = Robot("Manipulator 1");
+    ASSERT_TRUE(r1.addLink(2, 45));
+    ASSERT_TRUE(r1.addLink(1, 45));
+    ASSERT_FALSE(r1.isInTheCircle(-1,1,2));
+    r1.printStructure();
+}
+
+
 TEST(EndEffector, ThreeLinks) {
     Robot r1 = Robot("Manipulator 1");
     ASSERT_TRUE(r1.addLink(2, 45));

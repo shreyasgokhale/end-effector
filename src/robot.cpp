@@ -11,8 +11,19 @@
 #define radiansToDegrees(angleRadians) ((angleRadians) * 180.0 / M_PI)
 
 
+double calculateDistance(float x1, float y1, float x2, float y2) {
+    return sqrt(pow(x2 - x1, 2) +
+                      pow(y2 - y1, 2));
+}
+
+
 Robot::Robot(std::string name) : name(std::move(name)) {}
 
+/**
+ * Add link to the manipulator
+ * @param l: Link object
+ * @return true if success
+ */
 bool Robot::addLink(Link l) {
 
 //  Check if the end of the first link matches the start of the second link
@@ -51,7 +62,12 @@ bool Robot::addLink(Link l) {
     return true;
 }
 
-
+/**
+ * Add link dirctly to the existing manipulator
+ * @param length : Length of the link in units
+ * @param theta : Angle made by link w.r.t the previous link
+ * @return true if link added successfully
+ */
 bool Robot::addLink(float length, float theta) {
     Link l;
     if (manipulator.empty())
@@ -75,7 +91,10 @@ bool Robot::addLink(float length, float theta) {
     return true;
 }
 
-void Robot::printStructure() {
+/**
+ *  Prints Manipulator Structure
+ */
+ void Robot::printStructure() {
     if (!manipulator.empty()) {
         for (auto it:manipulator) {
             std::pair<float, float> origin = it.getOrigin();
@@ -88,11 +107,28 @@ void Robot::printStructure() {
     }
 }
 
-
-void Robot::getEndEffector( const std::shared_ptr<float>& x,  const std::shared_ptr<float>& y,  const std::shared_ptr<float>& theta){
+/**
+ * Gets position and total angle of end effector
+ * @param x : pointer of x coordinate
+ * @param y : pointer of y coordinate
+ * @param thetaP : pointer of the total angle thetaP
+ */
+void Robot::getEndEffector( const std::shared_ptr<float>& x,  const std::shared_ptr<float>& y,  const std::shared_ptr<float>& thetaP){
     *x = (float) manipulator.back().getEnd(global_theta).first;
     *y = (float) manipulator.back().getEnd(global_theta).second;
-    *theta = radiansToDegrees(global_theta);
+    *thetaP = radiansToDegrees(global_theta);
+}
+
+/**
+ * Finds if the end effector is in the given circle
+ * @param x : x coordinate of the center of the circle
+ * @param y : y coordinate of the center of the circle
+ * @param r : radius of the circle
+ * @return : true if in the circle, false otherwise
+ */
+bool Robot::isInTheCircle(float x, float y, float r){
+    return (calculateDistance(manipulator.back().getEnd(global_theta).first,
+                            manipulator.back().getEnd(global_theta).second, x, y) <= r);
 }
 
 Robot::~Robot() {
