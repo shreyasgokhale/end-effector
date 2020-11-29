@@ -26,6 +26,8 @@ public:
 
     bool addLink(float length, float theta);
 
+    bool removeEndLink();
+
     void printStructure();
 
     void getEndEffector(const std::shared_ptr<float> &x, const std::shared_ptr<float> &y,
@@ -37,6 +39,7 @@ private:
     std::string name;
     std::vector<Link> manipulator = {};
     double global_theta = 0;
+
 };
 
 
