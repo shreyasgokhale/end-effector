@@ -11,6 +11,14 @@
 #define radiansToDegrees(angleRadians) ((angleRadians) * 180.0 / M_PI)
 
 
+/**
+ * Calculate distance between two points using distanace formula
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ * @return
+ */
 double calculateDistance(float x1, float y1, float x2, float y2) {
     return sqrt(pow(x2 - x1, 2) +
                       pow(y2 - y1, 2));
@@ -48,7 +56,7 @@ bool Robot::addLink(Link l) {
 #endif
 
         if (e != o) {
-            std::cerr << "Link origin does not match end of last element" << std::endl;
+            std::cerr << "Link origin does not match the end of last element! " << std::endl;
             return false;
         }
     }
@@ -91,6 +99,17 @@ bool Robot::addLink(float length, float theta) {
     return true;
 }
 
+bool Robot::removeEndLink(){
+    if (manipulator.empty()) {
+        std::cerr << "Manipulator Empty!" << std::endl;
+        return false;
+    }
+    this->global_theta -= this->manipulator.back().getTheta();
+    this->manipulator.pop_back();
+    return true;
+}
+
+
 /**
  *  Prints Manipulator Structure
  */
@@ -117,6 +136,9 @@ void Robot::getEndEffector( const std::shared_ptr<float>& x,  const std::shared_
     *x = (float) manipulator.back().getEnd(global_theta).first;
     *y = (float) manipulator.back().getEnd(global_theta).second;
     *thetaP = radiansToDegrees(global_theta);
+#ifdef DEBUG
+    std::cout << "End Effector X = " << *x << " Y = " <<  *y << " Theta = " <<  *thetaP << std::endl;
+#endif
 }
 
 /**
