@@ -17,10 +17,10 @@ TEST(AddingLinks, Add2AndRemove1Link) {
         ASSERT_TRUE(r1.removeEndLink());
     }
 
-    std::shared_ptr<float> x = std::make_shared< float>();
-    std::shared_ptr<float> y = std::make_shared< float>();
-    std::shared_ptr<float> theta = std::make_shared< float>();
-    r1.getEndEffector(x, y,theta);
+    std::shared_ptr<float> x = std::make_shared<float>();
+    std::shared_ptr<float> y = std::make_shared<float>();
+    std::shared_ptr<float> theta = std::make_shared<float>();
+    r1.getEndEffector(x, y, theta);
     EXPECT_EQ(*theta, float(360));
     EXPECT_EQ(trunc(*x), 0);
     EXPECT_EQ(trunc(*y), 0);
@@ -36,10 +36,10 @@ TEST(AddingLinks, AddManyLinks) {
     for (int i = 0; i < 360; i++) {
         ASSERT_TRUE(r1.addLink(0.1, 1));
     }
-    std::shared_ptr<float> x = std::make_shared< float>();
-    std::shared_ptr<float> y = std::make_shared< float>();
-    std::shared_ptr<float> theta = std::make_shared< float>();
-    r1.getEndEffector(x, y,theta);
+    std::shared_ptr<float> x = std::make_shared<float>();
+    std::shared_ptr<float> y = std::make_shared<float>();
+    std::shared_ptr<float> theta = std::make_shared<float>();
+    r1.getEndEffector(x, y, theta);
     EXPECT_EQ(*theta, float(360));
     EXPECT_EQ(trunc(*x), 0);
     EXPECT_EQ(trunc(*y), 0);
@@ -72,8 +72,8 @@ TEST(Intersection, TestIfIntersect) {
     ASSERT_TRUE(r1.addLink(2, 45));
     ASSERT_TRUE(r1.addLink(1, 45));
     ASSERT_TRUE(r1.addLink(1, 90));
-    ASSERT_TRUE(r1.isInTheCircle(2,3,2));
-    ASSERT_FALSE(r1.isInTheCircle(-1,1,2));
+    ASSERT_TRUE(r1.isInTheCircle(2, 3, 2));
+    ASSERT_FALSE(r1.isInTheCircle(-1, 1, 2));
 //    r1.printStructure();
 }
 
@@ -82,7 +82,7 @@ TEST(Intersection, TestIfDontIntersect) {
     ASSERT_TRUE(r1.addLink(2, 45));
     ASSERT_TRUE(r1.addLink(1, 45));
     ASSERT_TRUE(r1.addLink(1, 90));
-    ASSERT_FALSE(r1.isInTheCircle(-1,1,2));
+    ASSERT_FALSE(r1.isInTheCircle(-1, 1, 2));
 //    r1.printStructure();
 }
 
@@ -92,10 +92,10 @@ TEST(EndEffector, ThreeLinks) {
     ASSERT_TRUE(r1.addLink(2, 45));
     ASSERT_TRUE(r1.addLink(1, 45));
     ASSERT_TRUE(r1.addLink(1, 90));
-    std::shared_ptr<float> x = std::make_shared< float>();
-    std::shared_ptr<float> y = std::make_shared< float>();
-    std::shared_ptr<float> theta = std::make_shared< float>();
-    r1.getEndEffector(x, y,theta);
+    std::shared_ptr<float> x = std::make_shared<float>();
+    std::shared_ptr<float> y = std::make_shared<float>();
+    std::shared_ptr<float> theta = std::make_shared<float>();
+    r1.getEndEffector(x, y, theta);
     EXPECT_EQ(*theta, float(180));
 //    r1.printStructure();
 }
@@ -107,10 +107,10 @@ TEST(EndEffector, LoopTest) {
     ASSERT_TRUE(r1.addLink(1, 90));
     ASSERT_TRUE(r1.addLink(1, 90));
 
-    std::shared_ptr<float> x = std::make_shared< float>();
-    std::shared_ptr<float> y = std::make_shared< float>();
-    std::shared_ptr<float> theta = std::make_shared< float>();
-    r1.getEndEffector(x, y,theta);
+    std::shared_ptr<float> x = std::make_shared<float>();
+    std::shared_ptr<float> y = std::make_shared<float>();
+    std::shared_ptr<float> theta = std::make_shared<float>();
+    r1.getEndEffector(x, y, theta);
 
     EXPECT_EQ(*theta, float(360));
 
@@ -131,7 +131,7 @@ TEST(EndEffector, CheckTheta) {
     std::shared_ptr<float> x = std::make_shared<float>();
     std::shared_ptr<float> y = std::make_shared<float>();
     std::shared_ptr<float> theta = std::make_shared<float>();
-    r1.getEndEffector(x, y,theta);
+    r1.getEndEffector(x, y, theta);
     EXPECT_EQ(*theta, float(90));
 }
 

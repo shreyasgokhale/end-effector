@@ -11,6 +11,14 @@
 #define radiansToDegrees(angleRadians) ((angleRadians) * 180.0 / M_PI)
 
 
+/**
+ * Calculate distance between two points using distanace formula
+ * @param x1
+ * @param y1
+ * @param x2
+ * @param y2
+ * @return
+ */
 double calculateDistance(float x1, float y1, float x2, float y2) {
     return sqrt(pow(x2 - x1, 2) +
                       pow(y2 - y1, 2));
@@ -100,7 +108,6 @@ bool Robot::removeEndLink(){
     this->manipulator.pop_back();
     return true;
 }
-
 
 
 /**
