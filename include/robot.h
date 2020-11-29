@@ -26,10 +26,14 @@ public:
 
     bool addLink(float length, float theta);
 
+    bool removeEndLink();
+
     void printStructure();
 
     void getEndEffector(const std::shared_ptr<float> &x, const std::shared_ptr<float> &y,
-                        const std::shared_ptr<float> &theta);
+                        const std::shared_ptr<float> &thetaP);
+
+    bool isInTheCircle(float x, float y, float r);
 
 private:
     std::string name;
