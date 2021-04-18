@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.18)
-project(end_effector_assignment)
+project(end_effector)
 
 set(CMAKE_CXX_STANDARD 11)
 
 #find_package(GTest CONFIG REQUIRED)
 
-add_executable(end_effector_assignment main.cpp src/link.cpp include/link.h src/robot.cpp include/robot.h test/robot-test.cpp)
+add_executable(end_effector main.cpp src/link.cpp include/link.h src/robot.cpp include/robot.h test/robot-test.cpp)
 
 
 # *** GTest ***
@@ -45,5 +45,5 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 # Now simply link against gtest or gtest_main as needed. Eg
-#add_executable(end_effector_assignment  test/robot-test.cpp)
-target_link_libraries(end_effector_assignment gtest_main)
+#add_executable(end_effector  test/robot-test.cpp)
+target_link_libraries(end_effector gtest_main)

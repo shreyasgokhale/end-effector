@@ -1,8 +1,4 @@
-# Halodi Robotics
-
-## Assignment
-
-[Question](Question.md)
+# Calculate End Effector
 
 ## First Impressions
 

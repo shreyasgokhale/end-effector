@@ -1,6 +1,6 @@
 # Question
 
-Halodi Robotics Programming Case
+Programming Case
 
 This case is to evaluate your coding skills and basic robotics/controls knowledge.
 
@@ -15,14 +15,12 @@ Rules:
     - You should not need a mathematics/matrix library either, but if it results in cleaner code feel free to use one.
 - We are looking for good programming practises demonstrating clean, re-usable, extendable, and maintainable code. Each step builds on code written in the previous steps.
     - Feel free to make assumptions and document them if information is missing in the case.
-    - If a question is unclear or you get stuck, feel free to reach out (jesper@halodi.com).
 - Provide test cases using a common testing platform for your language (for example, Google Test, Boost.Test, cppunit, etc).
     - Bonus points: Use test driven development
 - Add documentation where necessary. Document public API functions. Use good class, function, and variable names.
 - Develop against a local git repository, and commit at least after every question.
     - If using test driven development, show that using commits
     - Send the whole repository (include the .git directory) when finished
-- At the end of the case, zip up your work and send it to Linda (linda@halodi.com) and Jesper (jesper@halodi.com)
 
 ## 
 

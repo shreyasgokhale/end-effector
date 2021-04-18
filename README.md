@@ -1,4 +1,4 @@
-## End Effector Assignment for Halodi Robotics
+## Calculate End Effector
 
 ### Building and Running
 For building, make sure you have CMake 3.18+ installed.
@@ -16,7 +16,7 @@ make
 From build folder, execute following
  
 ```shell script
-./end_effector_assignment 
+./end_effector
 ```
 This will run 12 predefined tests
 
@@ -35,4 +35,4 @@ You can add your own tests or even use main file directly.
 
 For debugging, use function `Robot::printStructure()` to print the current manipulator structure.
 
-For more clarifications, have a look at [writeup](docs/Writeup.md) and [question](docs/Question.md).
+For more clarifications, have a look at [writeup](docs/Writeup.md).
